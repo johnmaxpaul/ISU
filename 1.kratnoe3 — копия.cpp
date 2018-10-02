@@ -9,7 +9,7 @@ using namespace std;
 int main() {
 	setlocale(LC_ALL, "Russian");
 	int a;
-	// вводим чило с проверкой на трЄхзначность
+	// вводим чило с проверкой на трЄdddхзначность
 	do {
 		cout << "¬ведите трЄхзначное число: ";
 		cin >> a;
