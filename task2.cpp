@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 using namespace std;
-//проверяем, является ли число одним из первой сотни простых шестизначных чисел
 bool isSimpleSix(int n){
 	if (n >= 200000) return false;
 	else{
@@ -13,7 +12,7 @@ bool isSimpleSix(int n){
 	return true;
 }
 
-bool fixNumber(int &n){ //исправляет число и возвращает 1, если необходимо; Если невозможно, возвращает 0
+bool fixNumber(int &n){ //РёР·РјРµРЅСЏРµС‚ С‡РёСЃР»Рѕ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ 1, РµСЃР»Рё РІРѕР·РјРѕР¶РЅРѕ, РёРЅР°С‡Рµ РІРѕР·РІСЂР°С‰Р°РµС‚ 0
 	int number = n;
 	int correct = 0;
 	int razr = 100000;
