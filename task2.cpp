@@ -1,7 +1,6 @@
 #include <fstream>
-#include <iostream>
-#include <string>
 using namespace std;
+//проверяем на простоту
 bool isSimpleSix(int n){
 	if (n >= 200000) return false;
 	else{
@@ -11,39 +10,27 @@ bool isSimpleSix(int n){
 	}
 	return true;
 }
-
-bool fixNumber(int &n){ //изменяет число и возвращает 1, если возможно, иначе возвращает 0
-	int number = n;
+//выдаем вариант исправления, если есть. Если нет, возвращаем 0
+int getVariant(int n, int razr){ 
+	int digit = (n / razr) % 10;
+	if (digit == 0 && isSimpleSix(n + 9 * razr)) return n + 9 * razr;
+	else if (digit != 0 && isSimpleSix(n - razr)) return n - razr;
+	else return 0;
+}
+//Возвращаем истину и исправляем, если возможно. Иначе возвращаем ложь
+bool fixNumber(int &n){
 	int correct = 0;
+	int variant = 0;
 	int razr = 100000;
-	if (isSimpleSix(number)) return true;
-	if (number / razr == 2){
+	if (isSimpleSix(n)) return true;
+	if (n / razr == 2){
 		n -= razr;
 		return true;
 	}
-	if (number % 2 == 0){
-		if (number % razr == 0) n += 9;
-		else n -= 1;
-		return true;
-	}
-	number %= razr;
 	razr /= 10;
-	for (int i = 5; i > 0; i--){
-		if (number / razr == 0 && isSimpleSix(n + 9 * razr)){
-			if (correct == 0) correct = n + 9 * razr;
-			else{
-				cout << n <<" may be "<<correct<<" or "<<n + 9 * razr<<endl;
-				return false;
-			}
-		}
-		else if(number / razr != 0 && isSimpleSix(n - razr)){
-			if (correct == 0) correct = n - razr;
-			else{
-				cout << n <<" may be "<<correct<<" or "<<n - razr<<endl;
-				return false;
-			}
-		}
-		number %= razr;
+	while(razr>=1){
+		if (correct == 0) correct = getVariant(n, razr);
+		else if (getVariant(n, razr) != 0) return false;
 		razr /= 10;
 	}
 	n = correct;
@@ -54,7 +41,9 @@ int main(){
 	ifstream in;
 	ofstream out;
 	in.open("input.dat");
+	if (in.fail()) return 1;
 	out.open("output.dat");
+	if (out.fail()) return 2;
 	int n;
 	while (!in.eof()){
 		in >> n;
